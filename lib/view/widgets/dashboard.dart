@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taqseemah/view/widgets/chart.dart';
-import 'package:taqseemah/view/widgets/goals_card.dart';
+import 'package:taqseemah/view/widgets/saving.dart';
 
 class DashBoard extends StatefulWidget {
   const DashBoard({super.key});
@@ -24,7 +24,7 @@ class _DashBoardState extends State<DashBoard> {
           child: Chart(),
         ),
         Container(
-          child: Goals(),
+          child: Saving(),
         ),
       ],
     ));

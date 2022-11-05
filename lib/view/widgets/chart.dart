@@ -39,7 +39,6 @@ class Chart extends StatelessWidget {
             padding:
                 const EdgeInsets.only(top: 8, left: 4, right: 4, bottom: 8),
             alignment: Alignment.topRight,
-            // ignore: prefer_const_constructors
             child: Text(
               'تقرير المصروفات',
               textDirection: TextDirection.rtl,
@@ -62,19 +61,16 @@ class Chart extends StatelessWidget {
               chartRadius: MediaQuery.of(context).size.width / 2.5,
               chartLegendSpacing: 32,
               chartType: ChartType.ring,
-              // ignore: prefer_const_constructors
               legendOptions: LegendOptions(
                 showLegendsInRow: true,
                 legendPosition: LegendPosition.bottom,
                 showLegends: true,
-                // ignore: prefer_const_constructors
                 legendTextStyle: TextStyle(
                     fontSize: 14, color: Color.fromRGBO(51, 45, 107, 1)
                     //fontFamily:
                     ),
               ),
-              baseChartColor:
-                  Color.fromRGBO(104, 104, 104, 1)!.withOpacity(0.15),
+              baseChartColor: Color.fromRGBO(104, 104, 104, 0.15),
               colorList: colorList,
               chartValuesOptions: const ChartValuesOptions(
                 showChartValuesInPercentage: true,
