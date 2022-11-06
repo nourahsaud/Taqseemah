@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 import 'package:taqseemah/view/screens/base.dart';
-import 'salary.dart';
+import 'registeration.dart';
 
 class Splash extends StatefulWidget {
   Splash({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _SplashState extends State<Splash> {
       logoWidth: 200,
       backgroundImage: AssetImage('assets/images/bg_splash.png'),
       backgroundColor: Color.fromRGBO(88, 161, 184, 1),
-      navigator: Salary(),
+      navigator: Registeration(),
       showLoader: false,
       durationInSeconds: 1,
     );
