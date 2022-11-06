@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
+import '../../constance.dart';
+
 class Chart extends StatelessWidget {
   Chart({Key? key}) : super(key: key);
 
@@ -13,9 +15,9 @@ class Chart extends StatelessWidget {
   };
 
   final colorList = <Color>[
-    Color.fromRGBO(128, 219, 231, 1),
-    Color.fromRGBO(0, 60, 70, 1),
-    Color.fromRGBO(0, 109, 143, 1),
+    LightColor1,
+    DarkColor1,
+    BlueyColor,
   ];
 
   @override
