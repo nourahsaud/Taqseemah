@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:taqseemah/view/widgets/dashboard.dart';
 import 'package:taqseemah/view/widgets/essentials.dart';
 import 'package:taqseemah/view/widgets/expenses.dart';
@@ -32,12 +34,19 @@ class _BaseState extends State<Base> {
         flexibleSpace: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/bg_appBar.png'),
+                image: _selectedIndex == 0
+                    ? AssetImage('assets/images/bg_appBar.png')
+                    : AssetImage('assets/images/bg_appbar1.png'),
                 fit: BoxFit.fill),
           ),
         ),
       ),
       body: screens[_selectedIndex], // call the page
+      floatingActionButton: _selectedIndex != 0
+          ? FloatingActionButton(onPressed: () {
+              print('Hi');
+            })
+          : null,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
