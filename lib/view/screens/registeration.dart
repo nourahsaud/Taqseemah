@@ -5,14 +5,14 @@ import 'base.dart';
 import '../../C/salary-controler.dart';
 import 'package:flutter/cupertino.dart';
 
-class Salary extends StatefulWidget {
-  Salary({super.key});
+class Registeration extends StatefulWidget {
+  Registeration({super.key});
 
   @override
-  State<Salary> createState() => _SalaryState();
+  State<Registeration> createState() => _RegisterationState();
 }
 
-class _SalaryState extends State<Salary> {
+class _RegisterationState extends State<Registeration> {
   var salController = Get.put(salaryController());
   bool _a = false;
   // DateTime datetime = DateTime.now().toString();
