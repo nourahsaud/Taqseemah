@@ -89,7 +89,7 @@ class _RegisterationState extends State<Registeration> {
                     textStyle: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
-                    Get.to(Base());
+                    Get.offAll(Base());
                     print(salController.salary.toString());
                   },
                   child: const Text('إبدأ'),
