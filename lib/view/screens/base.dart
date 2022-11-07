@@ -7,6 +7,8 @@ import 'package:taqseemah/view/widgets/dashboard.dart';
 import 'package:taqseemah/view/widgets/essentials.dart';
 import 'package:taqseemah/view/widgets/expenses.dart';
 
+int _selectedIndex = 0;
+
 class Base extends StatefulWidget {
   Base({Key? key}) : super(key: key);
   @override
@@ -14,7 +16,6 @@ class Base extends StatefulWidget {
 }
 
 class _BaseState extends State<Base> {
-  int _selectedIndex = 0;
   final screens = [DashBoard(), Expenses(), Essentials()];
 
   @override
@@ -24,19 +25,14 @@ class _BaseState extends State<Base> {
         elevation: 0.0,
         toolbarHeight: 200,
         backgroundColor: Color.fromRGBO(248, 248, 248, 1),
-        title: Container(
-          child: Text(
-            'DB',
-            style: TextStyle(color: Colors.white, fontSize: 28),
-          ),
-        ),
+        title: _selectedIndex == 0 ? appBarDB() : appBar(),
         centerTitle: true,
         flexibleSpace: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
                 image: _selectedIndex == 0
                     ? AssetImage('assets/images/bg_appBar.png')
-                    : AssetImage('assets/images/bg_appbar1.png'),
+                    : AssetImage('assets/images/bg_appBar1.png'),
                 fit: BoxFit.fill),
           ),
         ),
@@ -44,7 +40,7 @@ class _BaseState extends State<Base> {
       body: screens[_selectedIndex], // call the page
       floatingActionButton: _selectedIndex != 0
           ? FloatingActionButton(onPressed: () {
-              print('Hi');
+              _selectedIndex == 1 ? print(1) : print(2);
             })
           : null,
       bottomNavigationBar: Container(
@@ -94,6 +90,81 @@ class _BaseState extends State<Base> {
                 }),
           ),
         ),
+      ),
+    );
+  }
+}
+
+// Dashboard App bar
+class appBarDB extends StatelessWidget {
+  const appBarDB({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Text(
+            'الميزانية الحالية',
+            style: TextStyle(color: Color.fromRGBO(0, 60, 79, 1), fontSize: 16),
+          ),
+          Text(
+            '9,000,000',
+            style: TextStyle(color: Colors.white, fontSize: 32),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                ' ${_selectedIndex} : الدخل الشهري',
+                style: TextStyle(color: Colors.white, fontSize: 14),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Other Pages App bar
+class appBar extends StatelessWidget {
+  const appBar({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(right: 52.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Icon(Icons.person_outline_rounded),
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                _selectedIndex == 1 ? 'رصيد الإدخارات' : 'رصيد المصروفات ',
+                style: TextStyle(
+                    color: Color.fromRGBO(0, 60, 79, 1), fontSize: 14),
+              ),
+              _selectedIndex == 2 ? Icon(Icons.money) : Text(''),
+            ],
+          ),
+          Text(
+            _selectedIndex == 1 ? '25,000' : '20,000',
+            style: TextStyle(color: Colors.white, fontSize: 28),
+          ),
+        ],
       ),
     );
   }
