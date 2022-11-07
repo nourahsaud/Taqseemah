@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -5,10 +7,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../C/expenses_controler.dart';
 import '../../C/essentials_controller.dart';
+import '../../M/records.dart';
 import '../../constance.dart';
 import 'expenses.dart';
-
+List<Records> MIFromJson(String str) =>
+    List<Records>.from(json.decode(str).map((x) => Records.fromJson(x)));
 class EssentialsList extends StatefulWidget {
+
 
    EssentialsList({Key? key}) : super(key: key);
 
@@ -20,6 +25,17 @@ class _EssentialsListState extends State<EssentialsList> {
 
 
   var Controller = Get.put(EssentialsController());
+  loadRecords() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      try {
+        Controller.Essentials = MIFromJson(prefs.getString("Essentials")!);
+
+      } catch (e) {
+
+      }
+    });
+  }
 
   // loadMI() async {
   //   SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -240,7 +256,7 @@ class _EssentialsListState extends State<EssentialsList> {
             //     ),
             //   ],
             // ),
-            child:  ListView.builder(
+            child:   ListView.builder(
               // return ListView.builder(
                 shrinkWrap: true,
                 itemCount: Controller.Essentials.length,
@@ -260,22 +276,24 @@ class _EssentialsListState extends State<EssentialsList> {
                         ),
                         onPressed: () {
                           setState(() {
-
+                            Controller.delete(context, position);
                           });
                         },
                       ),
                     ),
+
                   );
-                }),
-          ),
+                })
+            )
+
         ],
       ),
     );
   }
+  @override
+  void initState() {
+    super.initState();
+    loadRecords();
+  }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   loadMI();
-  // }
 }

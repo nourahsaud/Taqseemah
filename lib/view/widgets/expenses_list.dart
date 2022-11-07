@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -6,8 +8,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../C/essentials_controller.dart';
 import '../../C/expenses_controler.dart';
+import '../../M/records.dart';
 import '../../constance.dart';
-
+List<Records> MIFromJson(String str) =>
+    List<Records>.from(json.decode(str).map((x) => Records.fromJson(x)));
 class ExpensesList extends StatefulWidget {
    ExpensesList({Key? key}) : super(key: key);
 
@@ -17,7 +21,17 @@ class ExpensesList extends StatefulWidget {
 
 class _ExpensesListState extends State<ExpensesList> {
   var Controller = Get.put(ExpensesController());
+  loadRecords() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      try {
+        Controller.Expenses = MIFromJson(prefs.getString("Expenses")!);
 
+      } catch (e) {
+
+      }
+    });
+  }
 
 
 
@@ -344,8 +358,8 @@ class _ExpensesListState extends State<ExpensesList> {
             //     ),
             //   ],
             // ),
-            child: Obx((){
-             return ListView.builder(
+            child:
+              ListView.builder(
 
                   shrinkWrap: true,
                   itemCount: Controller.Expenses.length,
@@ -366,18 +380,23 @@ class _ExpensesListState extends State<ExpensesList> {
                             ),
                             onPressed: () {
                               setState(() {
-
+                               Controller.delete(context, position);
                               });
                             },
                           ),
                         ),
 
                     );
-                  });
-            })
-          ),
+                  })
+            )
+
         ],
       ),
     );
+  }
+  @override
+  void initState() {
+    super.initState();
+    loadRecords();
   }
 }

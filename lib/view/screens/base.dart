@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -50,6 +52,7 @@ class _BaseState extends State<Base> {
       ),
       body: screens[_selectedIndex], // call the page
       floatingActionButton: _selectedIndex != 0
+
           ? FloatingActionButton(onPressed: () {
               _selectedIndex == 1 ?
               showDialog(
@@ -94,7 +97,7 @@ class _BaseState extends State<Base> {
               ]),
               actions: <Widget>[
                 ElevatedButton(onPressed: () {
-                  Controller.Expenses.add(Records( title: _titleController.text, amount: int.parse(_amuntController.text),));
+                  Controller.add(context,_titleController.text,  int.parse(_amuntController.text),);
                   _titleController.clear();
                   _amuntController.clear();
                   Get.back();
@@ -151,7 +154,7 @@ class _BaseState extends State<Base> {
                           ]),
                       actions: <Widget>[
                         ElevatedButton(onPressed: () {
-                          ControllerEssentials.Essentials.add(Records( title: _titleController.text, amount: int.parse(_amuntController.text),));
+                          ControllerEssentials.add(context, _titleController.text ,  int.parse(_amuntController.text));
                           _titleController.clear();
                           _amuntController.clear();
                           Get.back();
@@ -166,7 +169,9 @@ class _BaseState extends State<Base> {
                     );
                   });
 
-      })
+      }
+
+      )
           : null,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -200,11 +205,11 @@ class _BaseState extends State<Base> {
                   ),
                   GButton(
                     icon: LineIcons.file,
-                    text: 'الإلتزامات',
+                    text: ' المصروفات',
                   ),
                   GButton(
                     icon: LineIcons.moneyBill,
-                    text: 'المصروفات',
+                    text: 'الإلتزامات',
                   ),
                 ],
                 selectedIndex: _selectedIndex,
@@ -293,4 +298,5 @@ class appBar extends StatelessWidget {
       ),
     );
   }
+
 }
