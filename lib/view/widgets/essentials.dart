@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import 'essentials_list.dart';
+
 class Essentials extends StatefulWidget {
   const Essentials({super.key});
 
@@ -13,7 +15,18 @@ class _EssentialsState extends State<Essentials> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Text('fffff'),
-    );
+        child: GridView.count(
+          primary: false,
+          padding: const EdgeInsets.all(8),
+          //crossAxisSpacing: 10,
+          mainAxisSpacing: 10,
+          crossAxisCount: 1,
+          children: <Widget>[
+
+            Container(
+              child: EssentialsList(),
+            ),
+          ],
+        ));
   }
 }
