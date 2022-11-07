@@ -14,6 +14,12 @@ class Registeration extends StatefulWidget {
 
 class _RegisterationState extends State<Registeration> {
   var salController = Get.put(salaryController());
+  var ControllerUser = Get.put(UserController());
+
+  final _nameController = TextEditingController();
+  final _salaryController = TextEditingController();
+  final _dateController = TextEditingController();
+
   bool _a = false;
   // DateTime datetime = DateTime.now().toString();
 
@@ -30,47 +36,73 @@ class _RegisterationState extends State<Registeration> {
                 width: 250,
               ),
               SizedBox(
-                width: 450.0,
-                height: 100,
-                child: TextField(
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.deny(RegExp(r'[0-9]'))
-                  ],
-                  textAlign: TextAlign.right,
-                  decoration: InputDecoration(
-                    hintText: 'الإسم',
-                    suffixIcon: Icon(Icons.account_circle_outlined),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
+                height: 15,
+              ),
+              TextField(
+                controller: _nameController,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.deny(RegExp(r'[0-9]'))
+                ],
+                textAlign: TextAlign.right,
+                decoration: InputDecoration(
+                  hintText: 'الإسم',
+                  suffixIcon: Icon(Icons.account_circle_outlined),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
               ),
               SizedBox(
-                width: 450.0,
-                child: TextFormField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
-                  ],
-                  // onChanged: (valu) {},
-                  onTap: () {
-                    setState(() {
-                      _a = !_a;
-                    });
-                  },
-                  onChanged: (value) {
-                    value = salController.salary.toString();
-                  },
-                  textAlign: TextAlign.right,
-                  decoration: InputDecoration(
-                    hintText: 'الدخل الشهري',
-                    suffixIcon: Icon(
-                      Icons.money_rounded,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
+                height: 15,
+              ),
+              TextFormField(
+                controller: _dateController,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                ],
+                // onChanged: (valu) {},
+                onTap: () {
+                  setState(() {
+                    _a = !_a;
+                  });
+                },
+                onChanged: (value) {},
+                textAlign: TextAlign.right,
+                decoration: InputDecoration(
+                  hintText: 'تاريخ الراتب',
+                  suffixIcon: Icon(
+                    Icons.money_rounded,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              TextFormField(
+                controller: _salaryController,
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                ],
+                // onChanged: (valu) {},
+                onTap: () {
+                  setState(() {
+                    _a = !_a;
+                  });
+                },
+                onChanged: (value) {},
+                textAlign: TextAlign.right,
+                decoration: InputDecoration(
+                  hintText: 'الدخل الشهري',
+                  suffixIcon: Icon(
+                    Icons.money_rounded,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
                   ),
                 ),
               ),
@@ -78,6 +110,7 @@ class _RegisterationState extends State<Registeration> {
                   ? Text('مربع النص يستقبل أرقام فقط ⚠',
                       style: TextStyle(color: Colors.red))
                   : Text(''),
+
               Container(
                 width: 150.0,
                 padding: EdgeInsets.only(top: 100),
@@ -89,8 +122,12 @@ class _RegisterationState extends State<Registeration> {
                     textStyle: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
+                    ControllerUser.add(context,_nameController.text,  int.parse(_salaryController.text),_dateController.text);
+                    _nameController.clear();
+                    _salaryController.clear();
+                    _dateController.clear();
+                    print(ControllerUser.User);
                     Get.offAll(Base());
-                    print(salController.salary.toString());
                   },
                   child: const Text('إبدأ'),
                 ),

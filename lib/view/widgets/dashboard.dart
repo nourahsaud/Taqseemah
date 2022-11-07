@@ -17,7 +17,7 @@ class _DashBoardState extends State<DashBoard> {
       primary: false,
       padding: const EdgeInsets.all(8),
       //crossAxisSpacing: 10,
-      mainAxisSpacing: 10,
+      mainAxisSpacing: 2,
       crossAxisCount: 1,
       children: <Widget>[
         Container(
