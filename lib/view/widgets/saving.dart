@@ -1,7 +1,10 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:percent_indicator/percent_indicator.dart';
+import 'package:taqseemah/C/saving_controller.dart';
 
 class Saving extends StatefulWidget {
   const Saving({Key? key}) : super(key: key);
@@ -11,6 +14,7 @@ class Saving extends StatefulWidget {
 }
 
 class _SavingState extends State<Saving> {
+  var Controller = Get.put(SavingController());
   bool check = false; // to check if the button pressed or not
   @override
   Widget build(BuildContext context) {

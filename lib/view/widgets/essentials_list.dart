@@ -1,10 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../C/expenses_controler.dart';
+import '../../C/essentials_controller.dart';
 import '../../constance.dart';
+import 'expenses.dart';
 
-class EssentialsList extends StatelessWidget {
-  const EssentialsList({Key? key}) : super(key: key);
-  //khairiah
+class EssentialsList extends StatefulWidget {
+
+   EssentialsList({Key? key}) : super(key: key);
+
+  @override
+  State<EssentialsList> createState() => _EssentialsListState();
+}
+
+class _EssentialsListState extends State<EssentialsList> {
+
+
+  var Controller = Get.put(EssentialsController());
+
+  // loadMI() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   setState(() {
+  //     try {
+  //       Controller.k = MIFromJson(prefs.getString("k")!);
+  //     } catch (e) {
+  //     }
+  //   });
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,16 +50,7 @@ class EssentialsList extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                child: IconButton(
-                  icon: Icon(
-                    Icons.add,
-                    color: DarkColor1,
-                    size: 24,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
+
               Text(
                 'التزامات',
                 style: TextStyle(
@@ -47,185 +64,218 @@ class EssentialsList extends StatelessWidget {
           ),
           SizedBox(
             height: 350,
-            child: ListView(
-              padding: const EdgeInsets.all(8),
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '500,000',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: DarkColor1,
-                                //fontFamily:
-                              ),
-                            ),
-                            Row(
-                              // ignore: prefer_const_literals_to_create_immutables
-                              children: [
-                                Text(
-                                  'فاتورة كهربا',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: DarkColor1,
-                                    //fontFamily:
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Icon(
-                                    Icons.heart_broken,
-                                    color: DarkColor1,
-                                    size: 24,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
+            // child: ListView(
+            //   padding: const EdgeInsets.all(8),
+            //   children: <Widget>[
+            //     Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: Column(
+            //         children: [
+            //           Padding(
+            //             padding: const EdgeInsets.all(8.0),
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //               children: [
+            //                 Text(
+            //                   '500,000',
+            //                   style: TextStyle(
+            //                     fontWeight: FontWeight.bold,
+            //                     fontSize: 16,
+            //                     color: DarkColor1,
+            //                     //fontFamily:
+            //                   ),
+            //                 ),
+            //                 Row(
+            //                   // ignore: prefer_const_literals_to_create_immutables
+            //                   children: [
+            //                     Text(
+            //                       'فاتورة كهربا',
+            //                       style: TextStyle(
+            //                         fontWeight: FontWeight.bold,
+            //                         fontSize: 16,
+            //                         color: DarkColor1,
+            //                         //fontFamily:
+            //                       ),
+            //                     ),
+            //                     Padding(
+            //                       padding: const EdgeInsets.only(left: 8.0),
+            //                       child: Icon(
+            //                         Icons.heart_broken,
+            //                         color: DarkColor1,
+            //                         size: 24,
+            //                       ),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //
+            //           Padding(
+            //             padding: const EdgeInsets.only(left: 16.0, top: 8),
+            //             child: Align(
+            //               alignment: Alignment.centerLeft,
+            //               child: Text(
+            //                 '2022/2/3',
+            //               ),
+            //             ),
+            //           ),
+            //
+            //         ],
+            //       ),
+            //     ),
+            //     Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: Column(
+            //         children: [
+            //           Padding(
+            //             padding: const EdgeInsets.all(8.0),
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //               children: [
+            //                 Text(
+            //                   '500,000',
+            //                   style: TextStyle(
+            //                     fontWeight: FontWeight.bold,
+            //                     fontSize: 16,
+            //                     color: DarkColor1,
+            //                     //fontFamily:
+            //                   ),
+            //                 ),
+            //                 Row(
+            //                   // ignore: prefer_const_literals_to_create_immutables
+            //                   children: [
+            //                     Text(
+            //                       'ايجار البيت',
+            //                       style: TextStyle(
+            //                         fontWeight: FontWeight.bold,
+            //                         fontSize: 16,
+            //                         color: DarkColor1,
+            //                         //fontFamily:
+            //                       ),
+            //                     ),
+            //                     Padding(
+            //                       padding: const EdgeInsets.only(left: 8.0),
+            //                       child: Icon(
+            //                         Icons.heart_broken,
+            //                         color: DarkColor1,
+            //                         size: 24,
+            //                       ),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //
+            //           Padding(
+            //             padding: const EdgeInsets.only(left: 16.0, top: 8),
+            //             child: Align(
+            //               alignment: Alignment.centerLeft,
+            //               child: Text(
+            //                 '2022/2/3',
+            //               ),
+            //             ),
+            //           ),
+            //
+            //         ],
+            //       ),
+            //     ),
+            //     Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: Column(
+            //         children: [
+            //           Padding(
+            //             padding: const EdgeInsets.all(8.0),
+            //             child: Row(
+            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //               children: [
+            //                 Text(
+            //                   '500,000',
+            //                   style: TextStyle(
+            //                     fontWeight: FontWeight.bold,
+            //                     fontSize: 16,
+            //                     color: DarkColor1,
+            //                     //fontFamily:
+            //                   ),
+            //                 ),
+            //                 Row(
+            //                   // ignore: prefer_const_literals_to_create_immutables
+            //                   children: [
+            //                     Text(
+            //                       'قسط السياره',
+            //                       style: TextStyle(
+            //                         fontWeight: FontWeight.bold,
+            //                         fontSize: 16,
+            //                         color: DarkColor1,
+            //                         //fontFamily:
+            //                       ),
+            //                     ),
+            //                     Padding(
+            //                       padding: const EdgeInsets.only(left: 8.0),
+            //                       child: Icon(
+            //                         Icons.heart_broken,
+            //                         color: DarkColor1,
+            //                         size: 24,
+            //                       ),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //
+            //           Padding(
+            //             padding: const EdgeInsets.only(left: 16.0, top: 8),
+            //             child: Align(
+            //               alignment: Alignment.centerLeft,
+            //               child: Text(
+            //                 '2022/2/3',
+            //               ),
+            //             ),
+            //           ),
+            //
+            //         ],
+            //       ),
+            //     ),
+            //   ],
+            // ),
+            child:  ListView.builder(
+              // return ListView.builder(
+                shrinkWrap: true,
+                itemCount: Controller.Essentials.length,
+                itemBuilder: (BuildContext context, int position) {
+                  return Card(
+                    margin: const EdgeInsets.all(8),
+                    elevation: 2.4,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    child: ListTile(
+                      title: Text(Controller.Essentials[position].title),
+                      subtitle: Text(Controller.Essentials[position].amount.toString()),
+                      trailing: IconButton(
+                        icon: const Icon(
+                          Icons.delete,
+                          color: DarkColor1,
                         ),
-                      ),
+                        onPressed: () {
+                          setState(() {
 
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0, top: 8),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '2022/2/3',
-                          ),
-                        ),
+                          });
+                        },
                       ),
-
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '500,000',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: DarkColor1,
-                                //fontFamily:
-                              ),
-                            ),
-                            Row(
-                              // ignore: prefer_const_literals_to_create_immutables
-                              children: [
-                                Text(
-                                  'ايجار البيت',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: DarkColor1,
-                                    //fontFamily:
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Icon(
-                                    Icons.heart_broken,
-                                    color: DarkColor1,
-                                    size: 24,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0, top: 8),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '2022/2/3',
-                          ),
-                        ),
-                      ),
-
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              '500,000',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: DarkColor1,
-                                //fontFamily:
-                              ),
-                            ),
-                            Row(
-                              // ignore: prefer_const_literals_to_create_immutables
-                              children: [
-                                Text(
-                                  'قسط السياره',
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: DarkColor1,
-                                    //fontFamily:
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 8.0),
-                                  child: Icon(
-                                    Icons.heart_broken,
-                                    color: DarkColor1,
-                                    size: 24,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.only(left: 16.0, top: 8),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            '2022/2/3',
-                          ),
-                        ),
-                      ),
-
-                    ],
-                  ),
-                ),
-              ],
-            ),
+                    ),
+                  );
+                }),
           ),
         ],
       ),
     );
   }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   loadMI();
+  // }
 }

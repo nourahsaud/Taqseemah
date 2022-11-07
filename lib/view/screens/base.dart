@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -6,6 +8,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:taqseemah/view/widgets/dashboard.dart';
 import 'package:taqseemah/view/widgets/essentials.dart';
 import 'package:taqseemah/view/widgets/expenses.dart';
+
+import '../../C/essentials_controller.dart';
+import '../../C/expenses_controler.dart';
+import '../../M/records.dart';
 
 int _selectedIndex = 0;
 
@@ -16,6 +22,11 @@ class Base extends StatefulWidget {
 }
 
 class _BaseState extends State<Base> {
+  var Controller = Get.put(ExpensesController());
+  var ControllerEssentials = Get.put(EssentialsController());
+  final _amuntController = TextEditingController()  ;
+  final _titleController = TextEditingController();
+
   final screens = [DashBoard(), Expenses(), Essentials()];
 
   @override
@@ -61,8 +72,8 @@ class _BaseState extends State<Base> {
                 ),
               ),
                 SizedBox(height: 15,),
-              TextFormField(
-
+               TextFormField(
+                controller: _titleController,
               decoration: InputDecoration(
               border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
@@ -70,8 +81,8 @@ class _BaseState extends State<Base> {
               labelText: 'المصروف'),
               ),
                 SizedBox(height: 15,),
-              TextFormField(
-
+                TextFormField(
+               controller: _amuntController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
               border: OutlineInputBorder(
@@ -82,7 +93,14 @@ class _BaseState extends State<Base> {
                 SizedBox(height: 15,)
               ]),
               actions: <Widget>[
-                ElevatedButton(onPressed: () {}, child: Text('إضافة')),
+                ElevatedButton(onPressed: () {
+                  Controller.Expenses.add(Records( title: _titleController.text, amount: int.parse(_amuntController.text),));
+                  _titleController.clear();
+                  _amuntController.clear();
+                  Get.back();
+                  print( Controller.Expenses);
+
+                }, child: Text('إضافة')),
               TextButton(
               onPressed: Navigator.of(context).pop,
               child: const Text('إلغاء')),
@@ -112,7 +130,7 @@ class _BaseState extends State<Base> {
                             ),
                             SizedBox(height: 15,),
                             TextFormField(
-
+                              controller: _titleController,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(10.0),
@@ -121,7 +139,7 @@ class _BaseState extends State<Base> {
                             ),
                             SizedBox(height: 15,),
                             TextFormField(
-
+                              controller: _amuntController,
                               keyboardType: TextInputType.number,
                               decoration: InputDecoration(
                                   border: OutlineInputBorder(
@@ -132,7 +150,15 @@ class _BaseState extends State<Base> {
                             SizedBox(height: 15,)
                           ]),
                       actions: <Widget>[
-                        ElevatedButton(onPressed: () {}, child: Text('إضافة')),
+                        ElevatedButton(onPressed: () {
+                          ControllerEssentials.Essentials.add(Records( title: _titleController.text, amount: int.parse(_amuntController.text),));
+                          _titleController.clear();
+                          _amuntController.clear();
+                          Get.back();
+
+
+
+                        }, child: Text('إضافة')),
                         TextButton(
                             onPressed: Navigator.of(context).pop,
                             child: const Text('إلغاء')),
