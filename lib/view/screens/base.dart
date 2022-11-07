@@ -40,8 +40,107 @@ class _BaseState extends State<Base> {
       body: screens[_selectedIndex], // call the page
       floatingActionButton: _selectedIndex != 0
           ? FloatingActionButton(onPressed: () {
-              _selectedIndex == 1 ? print(1) : print(2);
-            })
+              _selectedIndex == 1 ?
+              showDialog(
+              context: context,
+              builder: (BuildContext context) {
+              return AlertDialog(
+              shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20)),
+              content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+              Text(
+             " مصروف جديد",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Color.fromRGBO(0, 60, 79, 1),
+                  //fontFamily:
+                ),
+              ),
+                SizedBox(height: 15,),
+              TextFormField(
+
+              decoration: InputDecoration(
+              border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              ),
+              labelText: 'المصروف'),
+              ),
+                SizedBox(height: 15,),
+              TextFormField(
+
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+              border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              ),
+              labelText: 'المبلغ'),
+              ),
+                SizedBox(height: 15,)
+              ]),
+              actions: <Widget>[
+                ElevatedButton(onPressed: () {}, child: Text('إضافة')),
+              TextButton(
+              onPressed: Navigator.of(context).pop,
+              child: const Text('إلغاء')),
+              ],
+              );
+              })
+
+                  :
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              " إلتزام جديد",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Color.fromRGBO(0, 60, 79, 1),
+                                //fontFamily:
+                              ),
+                            ),
+                            SizedBox(height: 15,),
+                            TextFormField(
+
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  labelText: 'الالتزام'),
+                            ),
+                            SizedBox(height: 15,),
+                            TextFormField(
+
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                  ),
+                                  labelText: 'المبلغ'),
+                            ),
+                            SizedBox(height: 15,)
+                          ]),
+                      actions: <Widget>[
+                        ElevatedButton(onPressed: () {}, child: Text('إضافة')),
+                        TextButton(
+                            onPressed: Navigator.of(context).pop,
+                            child: const Text('إلغاء')),
+                      ],
+                    );
+                  });
+
+      })
           : null,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
