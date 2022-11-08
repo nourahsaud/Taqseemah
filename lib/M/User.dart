@@ -1,6 +1,5 @@
 
 class UserModel {
-
   String name;
   int salary;
   String date;

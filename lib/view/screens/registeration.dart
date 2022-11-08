@@ -13,9 +13,8 @@ class Registeration extends StatefulWidget {
 }
 
 class _RegisterationState extends State<Registeration> {
-  var salController = Get.put(salaryController());
-  var ControllerUser = Get.put(UserController());
 
+  var ControllerUser = Get.put(UserController());
   final _nameController = TextEditingController();
   final _salaryController = TextEditingController();
   final _dateController = TextEditingController();
@@ -126,7 +125,7 @@ class _RegisterationState extends State<Registeration> {
                     _nameController.clear();
                     _salaryController.clear();
                     _dateController.clear();
-                    print(ControllerUser.User);
+                    print(ControllerUser.user);
                     Get.offAll(Base());
                   },
                   child: const Text('إبدأ'),

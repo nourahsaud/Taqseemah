@@ -1,15 +1,12 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:percent_indicator/linear_percent_indicator.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../C/essentials_controller.dart';
 import '../../C/expenses_controler.dart';
 import '../../M/records.dart';
 import '../../constance.dart';
+
+
 
 List<Records> MIFromJson(String str) =>
     List<Records>.from(json.decode(str).map((x) => Records.fromJson(x)));
@@ -35,10 +32,11 @@ class ExpensesList extends StatelessWidget {
       padding: const EdgeInsets.only(top: 4, left: 12, right: 12, bottom: 12),
       child: Column(
         children: [
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(width: 50,),
+              SizedBox(height: 20,),
               Text(
                 'مصروفات',
                 style: TextStyle(
@@ -50,6 +48,7 @@ class ExpensesList extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: 20,),
           SizedBox(
             height: 350,
               child:  ListView.builder(

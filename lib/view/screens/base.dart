@@ -5,15 +5,20 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:taqseemah/view/widgets/dashboard.dart';
 import 'package:taqseemah/view/widgets/essentials.dart';
 import 'package:taqseemah/view/widgets/expenses.dart';
-
 import '../../C/essentials_controller.dart';
 import '../../C/expenses_controler.dart';
-import '../../M/records.dart';
+import '../../C/salary-controler.dart';
+import '../../M/User.dart';
+
+
+
+List<UserModel> MIFromJson(String str) =>
+    List<UserModel>.from(json.decode(str).map((x) => UserModel.fromJson(x)));
+var ControllerUser = Get.put(UserController());
+
 
 int _selectedIndex = 0;
 
@@ -28,7 +33,6 @@ class _BaseState extends State<Base> {
   var ControllerEssentials = Get.put(EssentialsController());
   final _amuntController = TextEditingController();
   final _titleController = TextEditingController();
-
   final screens = [DashBoard(), Expenses(), Essentials()];
 
   @override
@@ -252,7 +256,8 @@ class _BaseState extends State<Base> {
 
 // Dashboard App bar
 class appBarDB extends StatelessWidget {
-  const appBarDB({
+   appBarDB({
+
     Key? key,
   }) : super(key: key);
 
@@ -260,13 +265,25 @@ class appBarDB extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Column(
+          children: [
+      Padding(
+      padding: const EdgeInsets.only(right: 52.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text("مرحبا ${ControllerUser.user[0].name}"),
+          Icon(Icons.person_outline_rounded),
+        ],
+      ),
+    ),
+       Column(
         children: [
           Text(
             'الميزانية الحالية',
             style: TextStyle(color: Color.fromRGBO(0, 60, 79, 1), fontSize: 16),
           ),
           Text(
-            '9,000,000',
+            '${ControllerUser.user[0].salary}',
             style: TextStyle(color: Colors.white, fontSize: 32),
           ),
           Row(
@@ -280,13 +297,14 @@ class appBarDB extends StatelessWidget {
           ),
         ],
       ),
-    );
+    ]));
   }
 }
 
 // Other Pages App bar
 class appBar extends StatelessWidget {
-  const appBar({
+   appBar({
+
     Key? key,
   }) : super(key: key);
 
@@ -300,6 +318,7 @@ class appBar extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
+                Text("مرحبا ${ControllerUser.user[0].name}"),
                 Icon(Icons.person_outline_rounded),
               ],
             ),
@@ -316,7 +335,7 @@ class appBar extends StatelessWidget {
             ],
           ),
           Text(
-            _selectedIndex == 1 ? '25,000' : '20,000',
+            _selectedIndex == 1 ? '${ControllerUser.user[0].salary * 30 / 100}'  : '${ControllerUser.user[0].salary / 2}' ,
             style: TextStyle(color: Colors.white, fontSize: 28),
           ),
         ],

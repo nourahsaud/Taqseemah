@@ -1,15 +1,11 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../C/expenses_controler.dart';
 import '../../C/essentials_controller.dart';
 import '../../M/records.dart';
 import '../../constance.dart';
-import 'expenses.dart';
+
 
 
 
@@ -40,10 +36,11 @@ class EssentialsList extends StatelessWidget {
       padding: const EdgeInsets.only(top: 4, left: 12, right: 12, bottom: 12),
       child: Column(
         children: [
+
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SizedBox(width: 50,),
+              SizedBox(height: 20,),
               Text(
                 'التزامات',
                 style: TextStyle(
@@ -55,6 +52,7 @@ class EssentialsList extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: 20,),
           SizedBox(
             height: 350,
               child: ListView.builder(
@@ -107,6 +105,7 @@ class EssentialsList extends StatelessWidget {
                               ],
                             ),
                           ),
+
                           Padding(
                             padding: const EdgeInsets.only(left: 16.0, top: 8),
                             child: Align(
@@ -114,14 +113,15 @@ class EssentialsList extends StatelessWidget {
                               child: Text(
                                 '2022/9/9',
                               ),
+
                             ),
                           ),
+
                         ],
                       ),
                     );
                   })
             )
-
         ],
       ),
     );
