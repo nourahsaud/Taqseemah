@@ -120,6 +120,10 @@ class _SavingState extends State<Saving> {
                                       _titleController.text,
                                       int.parse(_amuntController.text),
                                     );
+                                    setState(() {
+                                      Controller.Saving.length =
+                                          Controller.Saving.length;
+                                    });
                                     _titleController.clear();
                                     _amuntController.clear();
                                     Get.back();

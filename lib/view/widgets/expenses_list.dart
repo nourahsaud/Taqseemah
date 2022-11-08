@@ -10,10 +10,12 @@ import '../../C/essentials_controller.dart';
 import '../../C/expenses_controler.dart';
 import '../../M/records.dart';
 import '../../constance.dart';
+
 List<Records> MIFromJson(String str) =>
     List<Records>.from(json.decode(str).map((x) => Records.fromJson(x)));
+
 class ExpensesList extends StatefulWidget {
-   ExpensesList({Key? key}) : super(key: key);
+  ExpensesList({Key? key}) : super(key: key);
 
   @override
   State<ExpensesList> createState() => _ExpensesListState();
@@ -26,14 +28,9 @@ class _ExpensesListState extends State<ExpensesList> {
     setState(() {
       try {
         Controller.Expenses = MIFromJson(prefs.getString("Expenses")!);
-
-      } catch (e) {
-
-      }
+      } catch (e) {}
     });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +51,6 @@ class _ExpensesListState extends State<ExpensesList> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-
               Text(
                 'مصروفات',
                 style: TextStyle(
@@ -358,42 +354,40 @@ class _ExpensesListState extends State<ExpensesList> {
             //     ),
             //   ],
             // ),
-            child:
-              ListView.builder(
-
-                  shrinkWrap: true,
-                  itemCount: Controller.Expenses.length,
-                  itemBuilder: (BuildContext context, int position) {
-                    return Card(
-                      margin: const EdgeInsets.all(8),
-                      elevation: 2.4,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      child:
-                         ListTile(
-                          title: Text(Controller.Expenses[position].title),
-                          subtitle: Text(Controller.Expenses[position].amount.toString()),
-                          trailing: IconButton(
-                            icon: const Icon(
-                              Icons.delete,
-                              color: DarkColor1,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                               Controller.delete(context, position);
-                              });
-                            },
-                          ),
-                        ),
-
-                    );
-                  })
-            )
-
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: Controller.Expenses.length,
+              itemBuilder: (BuildContext context, int position) {
+                return Card(
+                  margin: const EdgeInsets.all(8),
+                  elevation: 2.4,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  child: ListTile(
+                    title: Text(Controller.Expenses[position].title),
+                    subtitle:
+                        Text(Controller.Expenses[position].amount.toString()),
+                    trailing: IconButton(
+                      icon: const Icon(
+                        Icons.delete,
+                        color: DarkColor1,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          Controller.delete(context, position);
+                        });
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
   }
+
   @override
   void initState() {
     super.initState();
