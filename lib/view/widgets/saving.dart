@@ -57,6 +57,7 @@ class _SavingState extends State<Saving> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+
               Container(
                 child: IconButton(
                     icon: Icon(
@@ -150,7 +151,6 @@ class _SavingState extends State<Saving> {
           SizedBox(
               height: 350,
               child: ListView.builder(
-                  // return ListView.builder(
                   shrinkWrap: true,
                   itemCount: Controller.Saving.length,
                   itemBuilder: (BuildContext context, int position) {
@@ -265,26 +265,3 @@ class _SavingState extends State<Saving> {
   }
 }
 
-
-// Card(
-//                       margin: const EdgeInsets.all(8),
-//                       elevation: 2.4,
-//                       shape: RoundedRectangleBorder(
-//                           borderRadius: BorderRadius.circular(20)),
-//                       child: ListTile(
-//                         title: Text(Controller.Saving[position].title),
-//                         subtitle: Text(Controller.Saving[position].amount.toString()),
-//                         trailing: IconButton(
-//                           icon: const Icon(
-//                             Icons.delete,
-//                             color: DarkColor1,
-//                           ),
-//                           onPressed: () {
-//                             setState(() {
-//                               Controller.delete(context, position);
-//                             });
-//                           },
-//                         ),
-//                       ),
-
-//                     );
