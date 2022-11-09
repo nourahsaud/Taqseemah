@@ -108,7 +108,7 @@ class ExpensesList extends StatelessWidget {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                '2022/9/9',
+                                '${Controller.Expenses[position].date}',
                               ),
                             ),
                           ),

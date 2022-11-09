@@ -26,15 +26,9 @@ class _SavingState extends State<Saving> {
   var Controller = Get.put(SavingController());
   final _amuntController = TextEditingController();
   final _titleController = TextEditingController();
+  final _dateController = TextEditingController();
 
-  loadRecords() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      try {
-        Controller.Saving = MIFromJson(prefs.getString("Saving")!);
-      } catch (e) {}
-    });
-  }
+
 
   bool check = false; // to check if the button pressed or not
   @override
@@ -111,6 +105,19 @@ class _SavingState extends State<Saving> {
                                   ),
                                   SizedBox(
                                     height: 15,
+                                  ),
+                                  TextFormField(
+                                    controller: _dateController,
+                                    keyboardType: TextInputType.number,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(10.0),
+                                        ),
+                                        labelText: 'التاريخ'),
+                                  ),
+                                  SizedBox(
+                                    height: 15,
                                   )
                                 ]),
                             actions: <Widget>[
@@ -119,7 +126,7 @@ class _SavingState extends State<Saving> {
                                     Controller.add(
                                       context,
                                       _titleController.text,
-                                      int.parse(_amuntController.text),
+                                      int.parse(_amuntController.text),_dateController.text
                                     );
                                     setState(() {
                                       Controller.Saving.length =
@@ -258,10 +265,6 @@ class _SavingState extends State<Saving> {
     );
   }
 
-  @override
-  void initState() {
-    super.initState();
-    loadRecords();
-  }
+
 }
 

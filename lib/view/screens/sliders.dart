@@ -24,10 +24,10 @@ class sliderPages extends StatefulWidget {
 class _sliderPagesState extends State<sliderPages> {
 
   void onDonePress() {
-    if(ControllerUser.user.isNotEmpty){
-      Get.to((Registeration()));
+    if(ControllerUser.user.isEmpty){
+      Get.offAll(Registeration());
     }else{
-      Get.to((Base()));
+      Get.offAll(Base());
     }
 
   }

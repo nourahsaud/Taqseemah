@@ -31,8 +31,13 @@ class Base extends StatefulWidget {
 class _BaseState extends State<Base> {
   var Controller = Get.put(ExpensesController());
   var ControllerEssentials = Get.put(EssentialsController());
+
+
   final _amuntController = TextEditingController();
   final _titleController = TextEditingController();
+  final _dateController = TextEditingController();
+
+
   final screens = [DashBoard(), Expenses(), Essentials()];
 
   @override
@@ -104,7 +109,20 @@ class _BaseState extends State<Base> {
                                 ),
                                 SizedBox(
                                   height: 15,
-                                )
+                                ),
+                                TextFormField(
+                                  controller: _dateController,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(10.0),
+                                      ),
+                                      labelText: 'التاريخ'),
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
                               ]),
                           actions: <Widget>[
                             ElevatedButton(
@@ -112,7 +130,7 @@ class _BaseState extends State<Base> {
                                   Controller.add(
                                     context,
                                     _titleController.text,
-                                    int.parse(_amuntController.text),
+                                    int.parse(_amuntController.text),_dateController.text
                                   );
                                   // setState(() {
                                   //   Controller.Expenses.length =
@@ -176,7 +194,20 @@ class _BaseState extends State<Base> {
                                 ),
                                 SizedBox(
                                   height: 15,
-                                )
+                                ),
+                                TextFormField(
+                                  controller: _dateController,
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(
+                                        borderRadius:
+                                        BorderRadius.circular(10.0),
+                                      ),
+                                      labelText: 'التاريخ'),
+                                ),
+                                SizedBox(
+                                  height: 15,
+                                ),
                               ]),
                           actions: <Widget>[
                             ElevatedButton(
@@ -184,7 +215,7 @@ class _BaseState extends State<Base> {
                                   ControllerEssentials.add(
                                       context,
                                       _titleController.text,
-                                      int.parse(_amuntController.text));
+                                      int.parse(_amuntController.text),_dateController.text);
                                   // setState(() {
                                   //   ControllerEssentials.Essentials.length =
                                   //       ControllerEssentials.Essentials.length;
@@ -290,7 +321,7 @@ class appBarDB extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                ' ${_selectedIndex} : الدخل الشهري',
+                ' ${ControllerUser.user[0].salary} : الدخل الشهري',
                 style: TextStyle(color: Colors.white, fontSize: 14),
               ),
             ],

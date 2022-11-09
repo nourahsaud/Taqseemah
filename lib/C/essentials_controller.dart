@@ -16,9 +16,9 @@ class EssentialsController extends GetxController {
     return Essentials;
   }
 
-  void add(BuildContext context, String title, int amount) async {
+  void add(BuildContext context, String title, int amount, String date) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Essentials.add(Records(title: title, amount: amount));
+    Essentials.add(Records(title: title, amount: amount,date: date));
     prefs.setString('Essentials', jsonEncode(Essentials));
 
 
