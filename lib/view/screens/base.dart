@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taqseemah/view/widgets/dashboard.dart';
 import 'package:taqseemah/view/widgets/essentials.dart';
 import 'package:taqseemah/view/widgets/expenses.dart';
@@ -12,11 +13,15 @@ import '../../C/essentials_controller.dart';
 import '../../C/expenses_controler.dart';
 import '../../C/salary-controler.dart';
 import '../../M/User.dart';
+import '../widgets/essentials_list.dart';
+import '../widgets/expenses_list.dart';
 
 
 
 List<UserModel> MIFromJson(String str) =>
     List<UserModel>.from(json.decode(str).map((x) => UserModel.fromJson(x)));
+var Controller = Get.put(ExpensesController());
+var ControllerEssentials = Get.put(EssentialsController());
 var ControllerUser = Get.put(UserController());
 
 
@@ -29,13 +34,11 @@ class Base extends StatefulWidget {
 }
 
 class _BaseState extends State<Base> {
-  var Controller = Get.put(ExpensesController());
-  var ControllerEssentials = Get.put(EssentialsController());
 
 
   final _amuntController = TextEditingController();
   final _titleController = TextEditingController();
-  final _dateController = TextEditingController();
+
 
 
   final screens = [DashBoard(), Expenses(), Essentials()];
@@ -110,16 +113,7 @@ class _BaseState extends State<Base> {
                                 SizedBox(
                                   height: 15,
                                 ),
-                                TextFormField(
-                                  controller: _dateController,
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(10.0),
-                                      ),
-                                      labelText: 'التاريخ'),
-                                ),
+
                                 SizedBox(
                                   height: 15,
                                 ),
@@ -130,7 +124,7 @@ class _BaseState extends State<Base> {
                                   Controller.add(
                                     context,
                                     _titleController.text,
-                                    int.parse(_amuntController.text),_dateController.text
+                                    int.parse(_amuntController.text),DateTime.now().toString()
                                   );
                                   // setState(() {
                                   //   Controller.Expenses.length =
@@ -195,16 +189,7 @@ class _BaseState extends State<Base> {
                                 SizedBox(
                                   height: 15,
                                 ),
-                                TextFormField(
-                                  controller: _dateController,
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                        BorderRadius.circular(10.0),
-                                      ),
-                                      labelText: 'التاريخ'),
-                                ),
+
                                 SizedBox(
                                   height: 15,
                                 ),
@@ -215,7 +200,7 @@ class _BaseState extends State<Base> {
                                   ControllerEssentials.add(
                                       context,
                                       _titleController.text,
-                                      int.parse(_amuntController.text),_dateController.text);
+                                      int.parse(_amuntController.text),DateTime.now().toString());
                                   // setState(() {
                                   //   ControllerEssentials.Essentials.length =
                                   //       ControllerEssentials.Essentials.length;
@@ -262,14 +247,18 @@ class _BaseState extends State<Base> {
                   GButton(
                     icon: LineIcons.home,
                     text: 'الرئيسية',
+
+
                   ),
                   GButton(
                     icon: LineIcons.file,
                     text: ' المصروفات',
+
                   ),
                   GButton(
                     icon: LineIcons.moneyBill,
                     text: 'الإلتزامات',
+
                   ),
                 ],
                 selectedIndex: _selectedIndex,
@@ -286,12 +275,36 @@ class _BaseState extends State<Base> {
 }
 
 // Dashboard App bar
-class appBarDB extends StatelessWidget {
+class appBarDB extends StatefulWidget {
+
    appBarDB({
 
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<appBarDB> createState() => _appBarDBState();
+}
+
+class _appBarDBState extends State<appBarDB> {
+  var remain;
+  var sumEssentials= 0;
+  var sumExpenses= 0;
+  getTotal() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      try {
+        for (final e in ControllerEssentials.Essentials) {
+          sumEssentials += e.amount;
+        }
+        for (final e in Controller.Expenses) {
+          //
+          sumExpenses += e.amount;
+        }
+        remain = (sumEssentials + sumExpenses);
+      } catch (e) {}
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -314,7 +327,7 @@ class appBarDB extends StatelessWidget {
             style: TextStyle(color: Color.fromRGBO(0, 60, 79, 1), fontSize: 16),
           ),
           Text(
-            '${ControllerUser.user[0].salary}',
+            '${ControllerUser.user[0].salary - remain }',
             style: TextStyle(color: Colors.white, fontSize: 32),
           ),
           Row(
@@ -330,14 +343,26 @@ class appBarDB extends StatelessWidget {
       ),
     ]));
   }
+  @override
+  void initState() {
+    getTotal();
+    super.initState();
+  }
 }
 
 // Other Pages App bar
-class appBar extends StatelessWidget {
+class appBar extends StatefulWidget {
    appBar({
 
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<appBar> createState() => _appBarState();
+}
+
+class _appBarState extends State<appBar> {
+
 
   @override
   Widget build(BuildContext context) {
@@ -373,4 +398,6 @@ class appBar extends StatelessWidget {
       ),
     );
   }
+
+
 }
