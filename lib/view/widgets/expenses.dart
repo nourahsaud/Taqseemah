@@ -7,14 +7,9 @@ import 'expenses_list.dart';
 
 
 
-class Expenses extends StatefulWidget {
+class Expenses extends StatelessWidget {
   const Expenses({super.key});
 
-  @override
-  State<Expenses> createState() => _ExpensesState();
-}
-
-class _ExpensesState extends State<Expenses> {
   @override
   Widget build(BuildContext context) {
     return Container(

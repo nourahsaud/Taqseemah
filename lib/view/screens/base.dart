@@ -149,7 +149,7 @@ class _BaseState extends State<Base> {
                                     // });
                                     _titleController.clear();
                                     _amuntController.clear();
-                                    Navigator.pop(context);
+                                    Get.back();
                                     print(Controller.Expenses);
                                   },
                                   child: Text('إضافة')),
@@ -428,7 +428,7 @@ class _appBarState extends State<appBar> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                _selectedIndex == 1 ? 'رصيد الإدخارات' : 'رصيد المصروفات ',
+                _selectedIndex == 1 ? 'رصيد المصروفات' : 'رصيد الالتزامات ',
                 style: TextStyle(
                     color: Color.fromRGBO(0, 60, 79, 1), fontSize: 14),
               ),

@@ -1,10 +1,18 @@
+import 'dart:convert';
+
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
+import 'package:taqseemah/C/salary-controler.dart';
 
+import '../../M/User.dart';
+import 'base.dart';
 import 'registeration.dart';
+List<UserModel> MIFromJson(String str) =>
+    List<UserModel>.from(json.decode(str).map((x) => UserModel.fromJson(x)));
+var ControllerUser = Get.put(UserController());
 
 class sliderPages extends StatefulWidget {
   sliderPages({super.key});
@@ -16,12 +24,20 @@ class sliderPages extends StatefulWidget {
 class _sliderPagesState extends State<sliderPages> {
   bool selected = false;
   void onDonePress() {
-    Get.to((Registeration()));
+    if(ControllerUser.user.isEmpty){
+      Get.offAll(Registeration());
+    }else{
+      Get.offAll(Base());
+    }
+
   }
 
   void onSkipPress() {
-    // print('hhhhi skip');
-    Get.to((Registeration()));
+    if(ControllerUser.user.isNotEmpty){
+      Get.to((Registeration()));
+    }else{
+      Get.to((Base()));
+    }
   }
 
   void onNextpress() {

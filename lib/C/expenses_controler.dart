@@ -44,6 +44,6 @@ class ExpensesController extends GetxController {
   void onInit() {
     super.onInit();
     getData();
-    getTotal();
+
   }
 }

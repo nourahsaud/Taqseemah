@@ -15,17 +15,17 @@ class EssentialsController extends GetxController {
     Essentials = MIFromJson(prefs.getString("Essentials")!);
     return Essentials;
   }
-  var sumEssentials = 0.obs;
-
-
-getTotal() async {
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-    try {
-      for (final e in Essentials) {
-        sumEssentials += e.amount;
-      }
-    } catch (e) {}
-  }
+//   var sumEssentials = 0.obs;
+//
+//
+// getTotal() async {
+//   SharedPreferences prefs = await SharedPreferences.getInstance();
+//     try {
+//       for (final e in Essentials) {
+//         sumEssentials += e.amount;
+//       }
+//     } catch (e) {}
+//   }
 
 
   void add(BuildContext context, String title, int amount, String date) async {
@@ -41,11 +41,11 @@ getTotal() async {
     prefs.setString('Essentials', jsonEncode(Essentials));
 
   }
-  @override
-  void onInit() {
-    super.onInit();
-    getData();
-    getTotal();
-  }
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   getData();
+  //   getTotal();
+  // }
 
 }

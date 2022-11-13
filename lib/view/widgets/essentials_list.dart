@@ -16,16 +16,10 @@ List<Records> MIFromJson(String str) =>
 
 
 
-class EssentialsList extends StatefulWidget {
+class EssentialsList extends StatelessWidget {
   EssentialsList({Key? key}) : super(key: key);
 
-  @override
-  State<EssentialsList> createState() => _EssentialsListState();
-}
-
-class _EssentialsListState extends State<EssentialsList> {
   var Controller = Get.put(EssentialsController());
-
 
   @override
   Widget build(BuildContext context) {
@@ -137,5 +131,4 @@ class _EssentialsListState extends State<EssentialsList> {
       );
 
   }
-
 }

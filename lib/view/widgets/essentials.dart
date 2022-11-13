@@ -4,14 +4,9 @@ import 'package:flutter/src/widgets/framework.dart';
 
 import 'essentials_list.dart';
 
-class Essentials extends StatefulWidget {
+class Essentials extends StatelessWidget {
   const Essentials({super.key});
 
-  @override
-  State<Essentials> createState() => _EssentialsState();
-}
-
-class _EssentialsState extends State<Essentials> {
   @override
   Widget build(BuildContext context) {
     return Container(
