@@ -9,8 +9,10 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taqseemah/C/saving_controller.dart';
 
+import '../../C/salary-controler.dart';
 import '../../M/records.dart';
 import '../../constance.dart';
+import '../screens/base.dart';
 
 List<Records> MIFromJson(String str) =>
     List<Records>.from(json.decode(str).map((x) => Records.fromJson(x)));
@@ -24,15 +26,19 @@ class Saving extends StatefulWidget {
 
 class _SavingState extends State<Saving> {
   var Controller = Get.put(SavingController());
+  var ControllerUser = Get.put(UserController());
+
+
   final _amuntController = TextEditingController();
   final _titleController = TextEditingController();
-  final _dateController = TextEditingController();
+
 
 
 
   bool check = false; // to check if the button pressed or not
   @override
   Widget build(BuildContext context) {
+    var c = ControllerUser.user[0].salary;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -67,7 +73,7 @@ class _SavingState extends State<Saving> {
                                 borderRadius: BorderRadius.circular(20)),
                             content: Column(
                                 mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Text(
                                     " هدف جديد",
@@ -106,16 +112,7 @@ class _SavingState extends State<Saving> {
                                   SizedBox(
                                     height: 15,
                                   ),
-                                  TextFormField(
-                                    controller: _dateController,
-                                    keyboardType: TextInputType.number,
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(10.0),
-                                        ),
-                                        labelText: 'التاريخ'),
-                                  ),
+
                                   SizedBox(
                                     height: 15,
                                   )
@@ -126,7 +123,7 @@ class _SavingState extends State<Saving> {
                                     Controller.add(
                                       context,
                                       _titleController.text,
-                                      int.parse(_amuntController.text),_dateController.text
+                                      int.parse(_amuntController.text),DateTime.now().toString()
                                     );
                                     setState(() {
                                       Controller.Saving.length =
@@ -145,6 +142,15 @@ class _SavingState extends State<Saving> {
                         })),
               ),
               Text(
+                'مبلغ الاهداف : ${c * 20 / 100}',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: Color.fromRGBO(0, 60, 79, 1),
+                  //fontFamily:
+                ),
+              ),
+              Text(
                 'أهدافي',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -153,6 +159,7 @@ class _SavingState extends State<Saving> {
                   //fontFamily:
                 ),
               ),
+
             ],
           ),
           SizedBox(
@@ -204,11 +211,13 @@ class _SavingState extends State<Saving> {
                               ],
                             ),
                           ),
+
                           LinearPercentIndicator(
                             animation: true,
                             animationDuration: 2000,
                             lineHeight: 20,
-                            percent: 0.7,
+
+                            percent:(Controller.Saving[position].amount/  c) ,
                             barRadius: const Radius.circular(16),
                             progressColor: Colors.blue[400],
                             backgroundColor: Colors.grey[300],
@@ -218,7 +227,7 @@ class _SavingState extends State<Saving> {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                '400,000',
+                                '${Controller.Saving[position].amount}',
                               ),
                             ),
                           ),

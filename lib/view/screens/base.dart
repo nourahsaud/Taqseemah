@@ -13,8 +13,7 @@ import '../../C/essentials_controller.dart';
 import '../../C/expenses_controler.dart';
 import '../../C/salary-controler.dart';
 import '../../M/User.dart';
-import '../widgets/essentials_list.dart';
-import '../widgets/expenses_list.dart';
+
 
 
 
@@ -23,7 +22,6 @@ List<UserModel> MIFromJson(String str) =>
 var Controller = Get.put(ExpensesController());
 var ControllerEssentials = Get.put(EssentialsController());
 var ControllerUser = Get.put(UserController());
-
 
 int _selectedIndex = 0;
 
@@ -288,20 +286,21 @@ class appBarDB extends StatefulWidget {
 
 class _appBarDBState extends State<appBarDB> {
   var remain;
-  var sumEssentials= 0;
-  var sumExpenses= 0;
+  var sumEssentialsForTotal= 0;
+  var sumExpensesForTotal= 0;
+
   getTotal() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       try {
         for (final e in ControllerEssentials.Essentials) {
-          sumEssentials += e.amount;
+          sumEssentialsForTotal += e.amount;
         }
         for (final e in Controller.Expenses) {
           //
-          sumExpenses += e.amount;
+          sumExpensesForTotal += e.amount;
         }
-        remain = (sumEssentials + sumExpenses);
+        remain = (sumEssentialsForTotal + sumExpensesForTotal);
       } catch (e) {}
     });
   }
@@ -352,6 +351,7 @@ class _appBarDBState extends State<appBarDB> {
 
 // Other Pages App bar
 class appBar extends StatefulWidget {
+
    appBar({
 
     Key? key,
@@ -362,7 +362,27 @@ class appBar extends StatefulWidget {
 }
 
 class _appBarState extends State<appBar> {
+  var remainEssentials;
+  var remainExpenses;
+  var sumEssentials= 0;
+  var sumExpenses= 0;
 
+  getSumForList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      try {
+        for (final e in ControllerEssentials.Essentials) {
+          sumEssentials += e.amount;
+        }
+        for (final e in Controller.Expenses) {
+          //
+          sumExpenses += e.amount;
+        }
+        remainEssentials = sumEssentials ;
+        remainExpenses = sumExpenses;
+      } catch (e) {}
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -388,16 +408,21 @@ class _appBarState extends State<appBar> {
                     color: Color.fromRGBO(0, 60, 79, 1), fontSize: 14),
               ),
               _selectedIndex == 2 ? Icon(Icons.money) : Text(''),
+              _selectedIndex == 1 ? Icon(Icons.money) : Text(''),
             ],
           ),
           Text(
-            _selectedIndex == 1 ? '${ControllerUser.user[0].salary * 30 / 100}'  : '${ControllerUser.user[0].salary / 2}' ,
+            _selectedIndex == 1 ? '${ControllerUser.user[0].salary * 30 / 100 - remainExpenses}'  : '${ControllerUser.user[0].salary / 2 - remainEssentials }' ,
             style: TextStyle(color: Colors.white, fontSize: 28),
           ),
         ],
       ),
     );
   }
-
+  @override
+  void initState() {
+    getSumForList();
+    super.initState();
+  }
 
 }
