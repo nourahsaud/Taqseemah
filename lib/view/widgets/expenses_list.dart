@@ -93,7 +93,7 @@ class ExpensesList extends StatelessWidget {
                                     Padding(
                                       padding: const EdgeInsets.only(left: 8.0),
                                       child: Icon(
-                                        Icons.heart_broken,
+                                        Icons.money,
                                         color: DarkColor1,
                                         size: 24,
                                       ),

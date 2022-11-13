@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:intl/intl.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taqseemah/view/widgets/dashboard.dart';
@@ -14,9 +15,6 @@ import '../../C/expenses_controler.dart';
 import '../../C/salary-controler.dart';
 import '../../M/User.dart';
 import '../../constance.dart';
-
-
-
 
 List<UserModel> MIFromJson(String str) =>
     List<UserModel>.from(json.decode(str).map((x) => UserModel.fromJson(x)));
@@ -33,17 +31,15 @@ class Base extends StatefulWidget {
 }
 
 class _BaseState extends State<Base> {
-
-
   final _amuntController = TextEditingController();
   final _titleController = TextEditingController();
-
-
 
   final screens = [DashBoard(), Expenses(), Essentials()];
 
   @override
   Widget build(BuildContext context) {
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat.yMMMEd().format(now);
     return Scaffold(
       appBar: AppBar(
         elevation: 0.0,
@@ -63,172 +59,194 @@ class _BaseState extends State<Base> {
       ),
       body: screens[_selectedIndex], // call the page
       floatingActionButton: _selectedIndex != 0
-          ? FloatingActionButton(onPressed: () {
-              _selectedIndex == 1
-                  ? showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Align(alignment: Alignment.centerLeft,
-                                  child: IconButton(
-                                    onPressed: (){
-                                      Get.back();
-                                    },
-                                    icon: Icon(Icons.close_rounded,
-                                        color: BlueyColor ),
-                                  ),),
-                                SizedBox(height: 20,),
-                                Text(
-                                  " مصروف جديد",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Color.fromRGBO(0, 60, 79, 1),
-                                    //fontFamily:
+          ? FloatingActionButton(
+            backgroundColor:BlueyColor,
+              child: const Text('+'),
+              onPressed: () {
+                _selectedIndex == 1
+                    ? showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                      icon: Icon(Icons.close_rounded,
+                                          color: BlueyColor),
+                                    ),
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                TextFormField(
-                                  controller: _titleController,
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      labelText: 'المصروف'),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                TextFormField(
-                                  controller: _amuntController,
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      labelText: 'المبلغ'),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-
-                                SizedBox(
-                                  height: 15,
-                                ),
-                              ]),
-                          actions: <Widget>[
-                            ElevatedButton(
-                                onPressed: () {
-                                  Controller.add(
-                                    context,
-                                    _titleController.text,
-                                    int.parse(_amuntController.text),DateTime.now().toString()
-                                  );
-                                  // setState(() {
-                                  //   Controller.Expenses.length =
-                                  //       Controller.Expenses.length;
-                                  // });
-                                  _titleController.clear();
-                                  _amuntController.clear();
-                                  Navigator.pop(context);
-                                  print(Controller.Expenses);
-                                },
-                                child: Text('إضافة')),
-
-                          ],
-                        );
-                      })
-                  : showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Align(alignment: Alignment.centerLeft,
-                                  child: IconButton(
-                                    onPressed: (){
-                                      Get.back();
-                                    },
-                                    icon: Icon(Icons.close_rounded,
-                                        color: BlueyColor ),
-                                  ),),
-                                SizedBox(height: 20,),
-                                Text(
-                                  " إلتزام جديد",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Color.fromRGBO(0, 60, 79, 1),
-                                    //fontFamily:
+                                  SizedBox(
+                                    height: 20,
                                   ),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                TextFormField(
-                                  controller: _titleController,
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      labelText: 'الالتزام'),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                TextFormField(
-                                  controller: _amuntController,
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                      ),
-                                      labelText: 'المبلغ'),
-                                ),
-                                SizedBox(
-                                  height: 15,
-                                ),
-
-                                SizedBox(
-                                  height: 15,
-                                ),
-                              ]),
-                          actions: <Widget>[
-                            ElevatedButton(
-                                onPressed: () {
-                                  ControllerEssentials.add(
+                                  Text(
+                                    " مصروف جديد",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Color.fromRGBO(0, 60, 79, 1),
+                                      //fontFamily:
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  TextFormField(
+                                    controller: _titleController,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        labelText: 'المصروف'),
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  TextFormField(
+                                    controller: _amuntController,
+                                    keyboardType: TextInputType.number,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        labelText: 'المبلغ'),
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                ]),
+                            actions: <Widget>[
+                              ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromRGBO(88, 161, 184, 1),
+                    foregroundColor: Colors.white,
+                    padding: EdgeInsets.all(20.0),
+                    textStyle: TextStyle(fontSize: 20),
+                  ),
+                                  onPressed: () {
+                                    Controller.add(
                                       context,
                                       _titleController.text,
-                                      int.parse(_amuntController.text),DateTime.now().toString());
-                                  // setState(() {
-                                  //   ControllerEssentials.Essentials.length =
-                                  //       ControllerEssentials.Essentials.length;
-                                  // });
-                                  _titleController.clear();
-                                  _amuntController.clear();
-                                  Get.back();
-                                },
-                                child: Text('إضافة')),
-                          ],
-                        );
-                      });
-            })
+                                      int.parse(_amuntController.text),
+                                      formattedDate.toString(),
+                                    );
+                                    // setState(() {
+                                    //   Controller.Expenses.length =
+                                    //       Controller.Expenses.length;
+                                    // });
+                                    _titleController.clear();
+                                    _amuntController.clear();
+                                    Navigator.pop(context);
+                                    print(Controller.Expenses);
+                                  },
+                                  child: Text('إضافة')),
+                            ],
+                          );
+                        })
+                    : showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: IconButton(
+                                      onPressed: () {
+                                        Get.back();
+                                      },
+                                      icon: Icon(Icons.close_rounded,
+                                          color: BlueyColor),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Text(
+                                    " إلتزام جديد",
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Color.fromRGBO(0, 60, 79, 1),
+                                      //fontFamily:
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  TextFormField(
+                                    controller: _titleController,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        labelText: 'الالتزام'),
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  TextFormField(
+                                    controller: _amuntController,
+                                    keyboardType: TextInputType.number,
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                        ),
+                                        labelText: 'المبلغ'),
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                  SizedBox(
+                                    height: 15,
+                                  ),
+                                ]),
+                            actions: <Widget>[
+                              ElevatedButton(
+                                           style: ElevatedButton.styleFrom(
+                    backgroundColor: Color.fromRGBO(88, 161, 184, 1),
+                    foregroundColor: Colors.white,
+                    padding: EdgeInsets.all(20.0),
+                    textStyle: TextStyle(fontSize: 20),
+                  ),
+                                  onPressed: () {
+                                    ControllerEssentials.add(
+                                        context,
+                                        _titleController.text,
+                                        int.parse(_amuntController.text),
+                                        formattedDate.toString());
+                                    // setState(() {
+                                    //   ControllerEssentials.Essentials.length =
+                                    //       ControllerEssentials.Essentials.length;
+                                    // });
+                                    _titleController.clear();
+                                    _amuntController.clear();
+                                    Get.back();
+                                  },
+                                  child: Text('إضافة')),
+                            ],
+                          );
+                        });
+              })
           : null,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -259,18 +277,14 @@ class _BaseState extends State<Base> {
                   GButton(
                     icon: LineIcons.home,
                     text: 'الرئيسية',
-
-
                   ),
                   GButton(
                     icon: LineIcons.file,
                     text: ' المصروفات',
-
                   ),
                   GButton(
                     icon: LineIcons.moneyBill,
                     text: 'الإلتزامات',
-
                   ),
                 ],
                 selectedIndex: _selectedIndex,
@@ -288,9 +302,7 @@ class _BaseState extends State<Base> {
 
 // Dashboard App bar
 class appBarDB extends StatefulWidget {
-
-   appBarDB({
-
+  appBarDB({
     Key? key,
   }) : super(key: key);
 
@@ -300,8 +312,8 @@ class appBarDB extends StatefulWidget {
 
 class _appBarDBState extends State<appBarDB> {
   var remain;
-  var sumEssentialsForTotal= 0;
-  var sumExpensesForTotal= 0;
+  var sumEssentialsForTotal = 0;
+  var sumExpensesForTotal = 0;
 
   getTotal() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -318,29 +330,29 @@ class _appBarDBState extends State<appBarDB> {
       } catch (e) {}
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-          children: [
+        child: Column(children: [
       Padding(
-      padding: const EdgeInsets.only(right: 52.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text("مرحبا ${ControllerUser.user[0].name}"),
-          Icon(Icons.person_outline_rounded),
-        ],
+        padding: const EdgeInsets.only(right: 52.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text("مرحبا ${ControllerUser.user[0].name}"),
+            Icon(Icons.person_outline_rounded),
+          ],
+        ),
       ),
-    ),
-       Column(
+      Column(
         children: [
           Text(
             'الميزانية الحالية',
             style: TextStyle(color: Color.fromRGBO(0, 60, 79, 1), fontSize: 16),
           ),
           Text(
-            '${ControllerUser.user[0].salary - remain }',
+            '${ControllerUser.user[0].salary - remain}',
             style: TextStyle(color: Colors.white, fontSize: 32),
           ),
           Row(
@@ -356,6 +368,7 @@ class _appBarDBState extends State<appBarDB> {
       ),
     ]));
   }
+
   @override
   void initState() {
     getTotal();
@@ -365,9 +378,7 @@ class _appBarDBState extends State<appBarDB> {
 
 // Other Pages App bar
 class appBar extends StatefulWidget {
-
-   appBar({
-
+  appBar({
     Key? key,
   }) : super(key: key);
 
@@ -378,8 +389,8 @@ class appBar extends StatefulWidget {
 class _appBarState extends State<appBar> {
   var remainEssentials;
   var remainExpenses;
-  var sumEssentials= 0;
-  var sumExpenses= 0;
+  var sumEssentials = 0;
+  var sumExpenses = 0;
 
   getSumForList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -392,7 +403,7 @@ class _appBarState extends State<appBar> {
           //
           sumExpenses += e.amount;
         }
-        remainEssentials = sumEssentials ;
+        remainEssentials = sumEssentials;
         remainExpenses = sumExpenses;
       } catch (e) {}
     });
@@ -426,17 +437,19 @@ class _appBarState extends State<appBar> {
             ],
           ),
           Text(
-            _selectedIndex == 1 ? '${ControllerUser.user[0].salary * 30 / 100 - remainExpenses}'  : '${ControllerUser.user[0].salary / 2 - remainEssentials }' ,
+            _selectedIndex == 1
+                ? '${ControllerUser.user[0].salary * 30 / 100 - remainExpenses}'
+                : '${ControllerUser.user[0].salary / 2 - remainEssentials}',
             style: TextStyle(color: Colors.white, fontSize: 28),
           ),
         ],
       ),
     );
   }
+
   @override
   void initState() {
     getSumForList();
     super.initState();
   }
-
 }

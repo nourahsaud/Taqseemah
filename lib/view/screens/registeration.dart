@@ -13,7 +13,6 @@ class Registeration extends StatefulWidget {
 }
 
 class _RegisterationState extends State<Registeration> {
-
   var ControllerUser = Get.put(UserController());
   final _nameController = TextEditingController();
   final _salaryController = TextEditingController();
@@ -35,7 +34,7 @@ class _RegisterationState extends State<Registeration> {
                 width: 250,
               ),
               SizedBox(
-                height: 15,
+                height: 10,
               ),
               TextField(
                 controller: _nameController,
@@ -52,7 +51,7 @@ class _RegisterationState extends State<Registeration> {
                 ),
               ),
               SizedBox(
-                height: 15,
+                height: 10,
               ),
               TextFormField(
                 controller: _dateController,
@@ -79,7 +78,7 @@ class _RegisterationState extends State<Registeration> {
                 ),
               ),
               SizedBox(
-                height: 15,
+                height: 10,
               ),
               TextFormField(
                 controller: _salaryController,
@@ -121,7 +120,11 @@ class _RegisterationState extends State<Registeration> {
                     textStyle: TextStyle(fontSize: 20),
                   ),
                   onPressed: () {
-                    ControllerUser.add(context,_nameController.text,  int.parse(_salaryController.text),_dateController.text);
+                    ControllerUser.add(
+                        context,
+                        _nameController.text,
+                        int.parse(_salaryController.text),
+                        _dateController.text);
                     _nameController.clear();
                     _salaryController.clear();
                     _dateController.clear();

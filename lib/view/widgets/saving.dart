@@ -28,12 +28,8 @@ class _SavingState extends State<Saving> {
   var Controller = Get.put(SavingController());
   var ControllerUser = Get.put(UserController());
 
-
   final _amuntController = TextEditingController();
   final _titleController = TextEditingController();
-
-
-
 
   bool check = false; // to check if the button pressed or not
   @override
@@ -57,7 +53,6 @@ class _SavingState extends State<Saving> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-
               Container(
                 child: IconButton(
                     icon: Icon(
@@ -75,15 +70,19 @@ class _SavingState extends State<Saving> {
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Align(alignment: Alignment.centerLeft,
+                                  Align(
+                                    alignment: Alignment.centerLeft,
                                     child: IconButton(
-                                      onPressed: (){
+                                      onPressed: () {
                                         Get.back();
                                       },
                                       icon: Icon(Icons.close_rounded,
-                                          color:  BlueyColor ),
-                                    ),),
-                                  SizedBox(height: 20,),
+                                          color: BlueyColor),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
                                   Text(
                                     " هدف جديد",
                                     style: TextStyle(
@@ -121,17 +120,25 @@ class _SavingState extends State<Saving> {
                                   SizedBox(
                                     height: 15,
                                   ),
-
                                 ]),
                             actions: <Widget>[
-                              SizedBox(width: 50,),
+                              SizedBox(
+                                width: 50,
+                              ),
                               ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor:
+                                        Color.fromRGBO(88, 161, 184, 1),
+                                    foregroundColor: Colors.white,
+                                    padding: EdgeInsets.all(20.0),
+                                    textStyle: TextStyle(fontSize: 20),
+                                  ),
                                   onPressed: () {
                                     Controller.add(
-                                      context,
-                                      _titleController.text,
-                                      int.parse(_amuntController.text),DateTime.now().toString()
-                                    );
+                                        context,
+                                        _titleController.text,
+                                        int.parse(_amuntController.text),
+                                        DateTime.now().toString());
                                     setState(() {
                                       Controller.Saving.length =
                                           Controller.Saving.length;
@@ -141,7 +148,6 @@ class _SavingState extends State<Saving> {
                                     Get.back();
                                   },
                                   child: Text('إضافة')),
-
                             ],
                           );
                         })),
@@ -164,7 +170,6 @@ class _SavingState extends State<Saving> {
                   //fontFamily:
                 ),
               ),
-
             ],
           ),
           SizedBox(
@@ -206,7 +211,7 @@ class _SavingState extends State<Saving> {
                                     Padding(
                                       padding: const EdgeInsets.only(left: 8.0),
                                       child: Icon(
-                                        Icons.heart_broken,
+                                        Icons.money,
                                         color: Color.fromRGBO(0, 60, 79, 1),
                                         size: 24,
                                       ),
@@ -216,13 +221,11 @@ class _SavingState extends State<Saving> {
                               ],
                             ),
                           ),
-
                           LinearPercentIndicator(
                             animation: true,
                             animationDuration: 2000,
                             lineHeight: 20,
-
-                            percent:(Controller.Saving[position].amount/  c) ,
+                            percent: (Controller.Saving[position].amount / c),
                             barRadius: const Radius.circular(16),
                             progressColor: Colors.blue[400],
                             backgroundColor: Colors.grey[300],
@@ -236,37 +239,6 @@ class _SavingState extends State<Saving> {
                               ),
                             ),
                           ),
-                          check == false
-                              ? ElevatedButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      check = true;
-                                    });
-                                  },
-                                  child: Text('add'))
-                              : Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            check = false;
-                                          });
-                                        },
-                                        child: Text('hi')),
-                                    SizedBox(
-                                      width: 200,
-                                      child: TextField(
-                                        decoration: new InputDecoration(
-                                            labelText: "Enter your number"),
-                                        keyboardType: TextInputType.number,
-                                        inputFormatters: <TextInputFormatter>[
-                                          FilteringTextInputFormatter.digitsOnly
-                                        ], // Only numbers can be entered
-                                      ),
-                                    ),
-                                  ],
-                                ),
                         ],
                       ),
                     );
@@ -278,7 +250,4 @@ class _SavingState extends State<Saving> {
       ),
     );
   }
-
-
 }
-
