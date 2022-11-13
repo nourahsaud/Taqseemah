@@ -13,6 +13,7 @@ import '../../C/essentials_controller.dart';
 import '../../C/expenses_controler.dart';
 import '../../C/salary-controler.dart';
 import '../../M/User.dart';
+import '../../constance.dart';
 
 
 
@@ -72,8 +73,17 @@ class _BaseState extends State<Base> {
                               borderRadius: BorderRadius.circular(20)),
                           content: Column(
                               mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
+                                Align(alignment: Alignment.centerLeft,
+                                  child: IconButton(
+                                    onPressed: (){
+                                      Get.back();
+                                    },
+                                    icon: Icon(Icons.close_rounded,
+                                        color: BlueyColor ),
+                                  ),),
+                                SizedBox(height: 20,),
                                 Text(
                                   " مصروف جديد",
                                   style: TextStyle(
@@ -130,13 +140,11 @@ class _BaseState extends State<Base> {
                                   // });
                                   _titleController.clear();
                                   _amuntController.clear();
-                                  Get.back();
+                                  Navigator.pop(context);
                                   print(Controller.Expenses);
                                 },
                                 child: Text('إضافة')),
-                            TextButton(
-                                onPressed: Navigator.of(context).pop,
-                                child: const Text('إلغاء')),
+
                           ],
                         );
                       })
@@ -148,8 +156,17 @@ class _BaseState extends State<Base> {
                               borderRadius: BorderRadius.circular(20)),
                           content: Column(
                               mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
+                                Align(alignment: Alignment.centerLeft,
+                                  child: IconButton(
+                                    onPressed: (){
+                                      Get.back();
+                                    },
+                                    icon: Icon(Icons.close_rounded,
+                                        color: BlueyColor ),
+                                  ),),
+                                SizedBox(height: 20,),
                                 Text(
                                   " إلتزام جديد",
                                   style: TextStyle(
@@ -208,9 +225,6 @@ class _BaseState extends State<Base> {
                                   Get.back();
                                 },
                                 child: Text('إضافة')),
-                            TextButton(
-                                onPressed: Navigator.of(context).pop,
-                                child: const Text('إلغاء')),
                           ],
                         );
                       });

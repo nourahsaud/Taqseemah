@@ -75,6 +75,15 @@ class _SavingState extends State<Saving> {
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
+                                  Align(alignment: Alignment.centerLeft,
+                                    child: IconButton(
+                                      onPressed: (){
+                                        Get.back();
+                                      },
+                                      icon: Icon(Icons.close_rounded,
+                                          color:  BlueyColor ),
+                                    ),),
+                                  SizedBox(height: 20,),
                                   Text(
                                     " هدف جديد",
                                     style: TextStyle(
@@ -113,11 +122,9 @@ class _SavingState extends State<Saving> {
                                     height: 15,
                                   ),
 
-                                  SizedBox(
-                                    height: 15,
-                                  )
                                 ]),
                             actions: <Widget>[
+                              SizedBox(width: 50,),
                               ElevatedButton(
                                   onPressed: () {
                                     Controller.add(
@@ -134,9 +141,7 @@ class _SavingState extends State<Saving> {
                                     Get.back();
                                   },
                                   child: Text('إضافة')),
-                              TextButton(
-                                  onPressed: Navigator.of(context).pop,
-                                  child: const Text('إلغاء')),
+
                             ],
                           );
                         })),
