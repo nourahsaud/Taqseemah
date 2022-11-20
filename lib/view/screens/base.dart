@@ -16,8 +16,7 @@ import '../../C/salary-controler.dart';
 import '../../M/User.dart';
 import '../../constance.dart';
 
-List<UserModel> MIFromJson(String str) =>
-    List<UserModel>.from(json.decode(str).map((x) => UserModel.fromJson(x)));
+
 var Controller = Get.put(ExpensesController());
 var ControllerEssentials = Get.put(EssentialsController());
 var ControllerUser = Get.put(UserController());

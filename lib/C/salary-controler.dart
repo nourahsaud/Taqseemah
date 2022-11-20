@@ -14,7 +14,7 @@ class UserController extends GetxController {
 
   Future<List<UserModel>> getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    user = MIFromJson(prefs.getString("User")!);
+    user = UserModelFromJson(prefs.getString("User")!);
     return user;
   }
 

@@ -12,7 +12,7 @@ class SavingController extends GetxController {
 
   Future<List<Records>> getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Saving = MIFromJson(prefs.getString("Saving")!);
+    Saving = RecordsFromJson(prefs.getString("Saving")!);
     return Saving;
   }
 

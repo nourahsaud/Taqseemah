@@ -12,7 +12,7 @@ class EssentialsController extends GetxController {
 
   Future<List<Records>> getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Essentials = MIFromJson(prefs.getString("Essentials")!);
+    Essentials = RecordsFromJson(prefs.getString("Essentials")!);
     return Essentials;
   }
 //   var sumEssentials = 0.obs;

@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
+
+List<Records> RecordsFromJson(String str) =>
+    List<Records>.from(json.decode(str).map((x) => Records.fromJson(x)));
 
 
 

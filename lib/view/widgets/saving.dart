@@ -14,8 +14,6 @@ import '../../M/records.dart';
 import '../../constance.dart';
 import '../screens/base.dart';
 
-List<Records> MIFromJson(String str) =>
-    List<Records>.from(json.decode(str).map((x) => Records.fromJson(x)));
 
 class Saving extends StatefulWidget {
   const Saving({Key? key}) : super(key: key);

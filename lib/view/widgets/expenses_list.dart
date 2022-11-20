@@ -8,9 +8,6 @@ import '../../constance.dart';
 
 
 
-List<Records> MIFromJson(String str) =>
-    List<Records>.from(json.decode(str).map((x) => Records.fromJson(x)));
-
 class ExpensesList extends StatelessWidget {
   ExpensesList({Key? key}) : super(key: key);
 

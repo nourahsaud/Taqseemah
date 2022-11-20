@@ -11,7 +11,7 @@ class ExpensesController extends GetxController {
 
   Future<List<Records>> getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    Expenses = MIFromJson(prefs.getString("Expenses")!);
+    Expenses = RecordsFromJson(prefs.getString("Expenses")!);
     return Expenses;
   }
   var sumExpenses = 0.obs;
